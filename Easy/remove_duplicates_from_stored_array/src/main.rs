@@ -1,11 +1,13 @@
 /*
 26. Remove Duplicates from Sorted Array
 
-Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.
+Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. 
+The relative order of the elements should be kept the same. Then return the number of unique elements in nums.
 
 Consider the number of unique elements of nums to be k, to get accepted, you need to do the following things:
 
-Change the array nums such that the first k elements of nums contain the unique elements in the order they were present in nums initially. The remaining elements of nums are not important as well as the size of nums.
+Change the array nums such that the first k elements of nums contain the unique elements in the order they were present in nums initially. 
+The remaining elements of nums are not important as well as the size of nums.
 Return k.
 Custom Judge:
 
@@ -42,19 +44,39 @@ Constraints:
 nums is sorted in non-decreasing order.
 */
 
+use std::vec;
+
+
 struct Solution;
+
 // Programem al funció que ens sol·lucionarà el problema
 impl Solution {
     pub fn remove_duplicates(nums: &mut Vec<i32>) -> i32 {
-        let mut result: i32 = 0; 
+        if nums.is_empty(){
+            return 0;
+        }
+        // We return the number of eliminated numbers
+        let mut k: usize = 0; 
+        let mut j: usize = 1;
         
+        while j < nums.len(){
+            if nums[k] != nums[j]{
+                k += 1;
+                j += 1;
+            } else {
+                // If the two numbers are the same we remove de last one
+                nums.remove(j);
+            }
+        }
         //returnem el resultat
-        result
+        (k + 1) as i32
     }
 }
 
 fn main() {
-    let mut vector: Vec<i32> = vec![1,1,2];
-    let result  =Solution::remove_duplicates( vector);
-    println!("Hello, world!");
+    let mut vector =vec![1,1,2];
+    let result: i32  =Solution::remove_duplicates( &mut vector);
+    println!("{result}");
+    println!("{:?}", vector);
+    
 }
